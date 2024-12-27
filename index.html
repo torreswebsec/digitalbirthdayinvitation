@@ -1,0 +1,569 @@
+<html><head><base href="." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Festa da Gabriella 🎈</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #000000, #1a0010);
+        color: #ffffff;
+    }
+
+    .header {
+        text-align: left;
+        padding: 60px 40px;
+        background: linear-gradient(135deg, #ff007f, #ff69b4);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header h1 {
+        font-size: 3.5em;
+        animation: slideInLeft 1.5s ease-out;
+        margin-bottom: 10px;
+    }
+
+    .header h2 {
+        font-size: 2.5em;
+        animation: slideInRight 1.5s ease-out;
+        margin-bottom: 15px;
+    }
+
+    .header .age {
+        font-size: 2em;
+        animation: pulse 2s infinite;
+        display: inline-block;
+    }
+
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-100px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(100px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .balloon-container {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .balloon {
+        position: absolute;
+        animation: float 15s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(100vh) translateX(0); }
+        100% { transform: translateY(-100vh) translateX(20px); }
+    }
+
+    .main-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(26, 0, 16, 0.9);
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+        margin-top: 20px;
+        border: 2px solid #ff69b4;
+    }
+
+    .details {
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 15px;
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 2px 10px rgba(255, 105, 180, 0.2);
+    }
+
+    .party-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .detail-card {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: left;
+        box-shadow: 0 2px 10px rgba(255, 105, 180, 0.2);
+        border: 1px solid #ff69b4;
+    }
+
+    .menu-section {
+        margin: 30px 0;
+        text-align: left;
+    }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .menu-item {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 15px;
+        border-radius: 15px;
+        text-align: left;
+        box-shadow: 0 2px 10px rgba(255, 105, 180, 0.2);
+        border: 1px solid #ff69b4;
+    }
+
+    .menu-icon {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .location-map {
+        margin: 30px 0;
+        text-align: left;
+    }
+
+    .rsvp-form {
+        margin-top: 40px;
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 15px;
+        border: 2px solid #ff007f;
+    }
+
+    .rsvp-note {
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 25px 0;
+        padding: 20px;
+        background: rgba(255, 105, 180, 0.1);
+        border-left: 4px solid #ff69b4;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin: 25px 0;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 105, 180, 0.3);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    .radio-group label {
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 2px solid #ff69b4;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #ff007f;
+        box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 18px 30px;
+        background: linear-gradient(45deg, #ff007f, #ff69b4);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        background: linear-gradient(45deg, #ff69b4, #ff007f);
+    }
+
+    .submit-btn:active {
+        transform: translateY(1px);
+    }
+
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+        accent-color: #ff69b4;
+    }
+
+    h1, h2, h3, h4 {
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .celebration-text {
+        font-size: 1.5em;
+        line-height: 1.4;
+        margin: 20px 0;
+        background: linear-gradient(-45deg, #ff007f, #ff69b4);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientMove 3s ease infinite;
+        font-weight: bold;
+    }
+
+    @keyframes gradientMove {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .header {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+        }
+
+        .header h2 {
+            font-size: 1.8em;
+        }
+
+        .main-content {
+            margin: 10px;
+            padding: 15px;
+        }
+
+        .party-details {
+            grid-template-columns: 1fr;
+        }
+
+        .menu-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .radio-group {
+            flex-direction: row;
+            gap: 30px;
+        }
+        
+        .radio-group label {
+            width: auto;
+        }
+    }
+
+    .footer {
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        border-top: 2px solid #ff69b4;
+        color: #ff69b4;
+    }
+
+    .copyright {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 0.9em;
+    }
+
+    .copyright-circle {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ff69b4;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8em;
+    }
+
+    .time-select {
+        width: 100%;
+        padding: 15px;
+        margin-top: 15px;
+        border: 2px solid #ff69b4;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .time-select:focus {
+        outline: none;
+        border-color: #ff007f;
+        box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .time-select option {
+        background: #1a0010;
+        color: white;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translate(-50%, -60%); }
+        to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    @keyframes fadeOut {
+        from { opacity: 1; transform: translate(-50%, -50%); }
+        to { opacity: 0; transform: translate(-50%, -40%); }
+    }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="balloon-container" id="balloonContainer"></div>
+
+    <div class="header">
+        <h1>Vem Comemorar! 🎉</h1>
+        <h2>O Aniversário da Gabriella</h2>
+        <div class="age">🎈 5 Anos 🎈</div>
+    </div>
+
+    <div class="main-content">
+        <div class="details">
+            <h3>Venha se Divertir Conosco! <span class="emoji">🎪</span></h3>
+            <p class="celebration-text">Nossa princesa está completando 5 aninhos e queremos você nessa festa incrível!</p>
+
+            <div class="party-details">
+                <div class="detail-card">
+                    <h4>📅 Data</h4>
+                    <p>Sábado, 30 de Dezembro</p>
+                    <p>14:00 - 18:00</p>
+                </div>
+
+                <div class="detail-card">
+                    <h4>🎯 Atrações</h4>
+                    <p>Piscina de Bolinhas</p>
+                    <p>Pula-Pula</p>
+                    <p>Pintura Facial</p>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h3>Menu Especial 🍽️</h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-icon">🍰</div>
+                        <h4>Doces</h4>
+                        <p>Brigadeiros Gourmet</p>
+                        <p>Cupcakes Decorados</p>
+                        <p>Cake Pops</p>
+                        <p>Macarons</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-icon">🍕</div>
+                        <h4>Salgados</h4>
+                        <p>Mini Pizza</p>
+                        <p>Coxinhas</p>
+                        <p>Mini Quiches</p>
+                        <p>Sanduíches Naturais</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-icon">🍨</div>
+                        <h4>Sobremesas</h4>
+                        <p>Mousse de Chocolate</p>
+                        <p>Gelatina Colorida</p>
+                        <p>Petit Gateau</p>
+                        <p>Sorvetes Variados</p>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-icon">🥤</div>
+                        <h4>Bebidas</h4>
+                        <p>Sucos Naturais</p>
+                        <p>Refrigerantes</p>
+                        <p>Chocolate Quente</p>
+                        <p>Água Saborizada</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="location-map">
+                <h3>Como Chegar 🗺️</h3>
+                <p>A 5 minutos da Estação Cornavin</p>
+                <p>Por favor, preencha o formulário abaixo para receber o endereço completo da festa.</p>
+            </div>
+        </div>
+
+        <div class="rsvp-form">
+            <h3>Confirme sua Presença! <span class="emoji">✨</span></h3>
+            <p class="rsvp-note">Para melhor atendê-los e preparar a quantidade adequada de comida, por favor preencha todos os campos abaixo. É importante sabermos sobre alergias e a presença dos pais para garantir o conforto e segurança de todos.</p>
+            <form id="rsvpForm">
+                <input type="text" id="childName" placeholder="Nome Completo da Criança Convidada" required>
+                <input type="text" id="parentPhone" placeholder="Telefone dos Pais" required>
+                
+                <div class="form-group">
+                    <label>A criança tem alguma alergia alimentar?</label>
+                    <div class="radio-group">
+                        <input type="radio" id="allergyYes" name="allergy" value="yes">
+                        <label for="allergyYes">Sim</label>
+                        <input type="radio" id="allergyNo" name="allergy" value="no" checked>
+                        <label for="allergyNo">Não</label>
+                    </div>
+                    <div id="allergyDetails" style="display: none;">
+                        <textarea placeholder="Por favor, descreva as alergias em detalhes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Os pais/responsáveis:</label>
+                    <div class="radio-group">
+                        <input type="radio" id="stayYes" name="parentStay" value="stay" required>
+                        <label for="stayYes">Ficarão na festa</label>
+                        <input type="radio" id="stayNo" name="parentStay" value="leave" required>
+                        <label for="stayNo">Deixarão a criança e buscarão às 18:00</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Confirmar Presença 🎉</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <div class="copyright">
+                <div class="copyright-circle">©</div>
+                <span>2025 FLOW TECHNOLOGY</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createBalloon() {
+            const colors = ['#ff007f', '#ff69b4', '#ff1493', '#ff69b4'];
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            balloon.innerHTML = `
+                <svg width="30" height="40" viewBox="0 0 30 40">
+                    <path d="M15 0C7 0 0 7 0 15C0 23 7 30 15 30C23 30 30 23 30 15C30 7 23 0 15 0Z" 
+                          fill="${colors[Math.floor(Math.random() * colors.length)]}"/>
+                    <path d="M15 30L18 40L12 40L15 30Z" fill="#ff007f"/>
+                </svg>
+            `;
+            document.getElementById('balloonContainer').appendChild(balloon);
+            
+            setTimeout(() => {
+                balloon.remove();
+            }, 15000);
+        }
+
+        setInterval(createBalloon, 2000);
+
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Presença confirmada! O endereço completo será enviado para seu telefone. Obrigado por fazer parte desta celebração especial! 🎉');
+            this.reset();
+        });
+
+        document.getElementsByName('allergy').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const allergyDetails = document.getElementById('allergyDetails');
+                allergyDetails.style.display = this.value === 'yes' ? 'block' : 'none';
+            });
+        });
+
+        document.getElementsByName('parentStay').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'stay') {
+                    const message = document.createElement('div');
+                    message.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: linear-gradient(135deg, #ff007f, #ff69b4);
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                        color: white;
+                        font-size: 18px;
+                        text-align: center;
+                        z-index: 1000;
+                        animation: fadeIn 0.3s ease;
+                    `;
+                    message.innerHTML = `
+                        <h3 style="margin-bottom: 10px;">Ótimo! 🎉</h3>
+                        <p>Será servida uma deliciosa feijoada para os pais que ficarem na festa! 🍛</p>
+                    `;
+                    document.body.appendChild(message);
+                    
+                    setTimeout(() => {
+                        message.style.animation = 'fadeOut 0.3s ease';
+                        setTimeout(() => message.remove(), 300);
+                    }, 3000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
